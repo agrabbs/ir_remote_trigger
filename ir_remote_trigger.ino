@@ -7,7 +7,7 @@
 #define ATOMS3_LIMIT_SWITCH_RX_PIN 8
 
 uint8_t tx_repeats = 3;
-uint8_t lastState = HIGH; // the previous state from the input pin
+uint8_t lastState  = HIGH; // the previous state from the input pin
 uint8_t currentState;     // the current reading from the input pin
 
 /*
