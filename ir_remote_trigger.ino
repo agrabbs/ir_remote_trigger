@@ -6,7 +6,13 @@
 #define ATOMS3_IR_TX_PIN 4
 #define ATOMS3_LIMIT_SWITCH_RX_PIN 8
 
-// credit: https://diydrones.com/forum/topics/sony-a7-infrared-codes
+uint8_t tx_repeats = 3;
+uint8_t lastState = HIGH; // the previous state from the input pin
+uint8_t currentState;     // the current reading from the input pin
+
+/*
+credit: https://diydrones.com/forum/topics/sony-a7-infrared-codes
+*/
 enum SonyCodes {
   PHOTO       = 0xB4B8F, // Shutter | take photo
   VIDEO       = 0x12B8F, // Start | stop video recording
@@ -21,13 +27,9 @@ enum SonyCodes {
   Z_MINUS     = 0xD2B8F  // Zoom out
 };
 
-uint8_t tx_repeats = 3;
-int lastState = HIGH; // the previous state from the input pin
-int currentState;     // the current reading from the input pin
-
 void prv_tx_ir_sensor(SonyCodes code)
 {
-  for (int i = 0; i < tx_repeats; i++)
+  for (uint8_t i = 0; i < tx_repeats; i++)
   {
     Serial.println("[" + String(i) + "] tx");
     IrSender.sendSonyMSB(code, 20);
